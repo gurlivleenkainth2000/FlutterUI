@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ui_snippets/bottomNavBar.dart';
 import 'package:flutter_ui_snippets/bottomNavigation.dart';
 import 'package:flutter_ui_snippets/customTabBar.dart';
 
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: BottomNavigationScreen(),
+      home: BottomNavBarScreen(),
     );
   }
 }
