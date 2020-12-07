@@ -28,13 +28,9 @@ class _CustomTabsState extends State<CustomTabs> {
             ),
             tabs: <Widget>[
               Container(
-//                width: MediaQuery.of(context).size.width,
                 height: 45,
                 alignment: Alignment.center,
                 padding: EdgeInsets.all(12),
-                // decoration: BoxDecoration(
-                //     borderRadius: BorderRadius.all(Radius.circular(50)),
-                //     border: Border.all(color: Colors.yellow, width: 1)),
                 child: Text(
                   "Trending",
                   style: TextStyle(
@@ -44,13 +40,9 @@ class _CustomTabsState extends State<CustomTabs> {
                 ),
               ),
               Container(
-//                width: MediaQuery.of(context).size.width,
                 height: 45,
                 alignment: Alignment.center,
                 padding: EdgeInsets.all(12),
-                // decoration: BoxDecoration(
-                //     borderRadius: BorderRadius.all(Radius.circular(50)),
-                //     border: Border.all(color: Colors.yellow, width: 1)),
                 child: Text(
                   "Veg Food",
                   style: TextStyle(
@@ -60,13 +52,9 @@ class _CustomTabsState extends State<CustomTabs> {
                 ),
               ),
               Container(
-//                width: MediaQuery.of(context).size.width,
                 height: 45,
                 alignment: Alignment.center,
                 padding: EdgeInsets.all(12),
-                // decoration: BoxDecoration(
-                //     borderRadius: BorderRadius.all(Radius.circular(50)),
-                //     border: Border.all(color: Colors.yellow, width: 1)),
                 child: Text(
                   "Non-Veg Food",
                   style: TextStyle(
@@ -76,13 +64,9 @@ class _CustomTabsState extends State<CustomTabs> {
                 ),
               ),
               Container(
-//                width: MediaQuery.of(context).size.width,
                 height: 45,
                 alignment: Alignment.center,
                 padding: EdgeInsets.all(12),
-                // decoration: BoxDecoration(
-                //     borderRadius: BorderRadius.all(Radius.circular(50)),
-                //     border: Border.all(color: Colors.yellow, width: 1)),
                 child: Text(
                   "Snacks",
                   style: TextStyle(
@@ -92,13 +76,9 @@ class _CustomTabsState extends State<CustomTabs> {
                 ),
               ),
               Container(
-//                width: MediaQuery.of(context).size.width,
                 height: 45,
                 alignment: Alignment.center,
                 padding: EdgeInsets.all(12),
-                // decoration: BoxDecoration(
-                //     borderRadius: BorderRadius.all(Radius.circular(50)),
-                //     border: Border.all(color: Colors.yellow, width: 1)),
                 child: Text(
                   "Deserts",
                   style: TextStyle(
