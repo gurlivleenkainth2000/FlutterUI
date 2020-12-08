@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class BottomFloatNavBarScreen extends StatefulWidget {
   @override
@@ -9,49 +10,29 @@ class BottomFloatNavBarScreen extends StatefulWidget {
 
 class _BottomFloatNavBarScreenState extends State<BottomFloatNavBarScreen> {
 
-  int _currentIndex = 0;
+  int _currentIndex = 1;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   bool _sheetOpen = false;
+
+  List<Widget> _screensArray = <Widget>[
+    Center(child: Text('Success'),),
+    HomeScreen(),
+    Center(child: Text('Approvals'),),
+    Center(child: Text('More'),),
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: _scaffoldKey,
-        appBar: AppBar(
-          title: const Text('Simple Bottom Navigation'),
-          elevation: 0.5,
-        ),
-        body: Center(
-            child: RichText(
-              text: TextSpan(
-                  children: <TextSpan>[
-                    TextSpan(
-                      text: 'Hello!! ',
-                      style: TextStyle(
-                          fontSize: 32,
-                          fontWeight: FontWeight.w500,
-                          fontStyle: FontStyle.italic,
-                          color: Colors.black
-                      ),
-                    ),
-                    TextSpan(
-                      text: '${_currentIndex + 1}',
-                      style: TextStyle(
-                          fontSize: 32,
-                          fontWeight: FontWeight.w500,
-                          fontStyle: FontStyle.italic,
-                          color: Colors.red
-                      ),
-                    ),
-                  ]
-              ),
-            )
-        ),
+        key: _scaffoldKey,
+        body: _screensArray[_currentIndex],
+        backgroundColor: Colors.white,
         floatingActionButton: Builder(
           builder: (context) => FloatingActionButton(
             onPressed: () {
               _showModalBottomSheet(context);
             },
+            backgroundColor: Colors.pink,
             child: Icon(Icons.add, size: 32,),
             clipBehavior: Clip.hardEdge,
           ),
@@ -72,61 +53,129 @@ class _BottomFloatNavBarScreenState extends State<BottomFloatNavBarScreen> {
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         bottomNavigationBar: BottomAppBar(
           shape: CircularNotchedRectangle(),
-          color: Colors.white38,
+          color: Colors.black,
           elevation: 0.5,
           notchMargin: 8,
           // clipBehavior: Clip.antiAlias,
           child: Container(
-            height: 60,
+            height: 70,
             margin: EdgeInsets.only(left: 12, right: 12),
               child: Row(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  IconButton(
-                    tooltip: 'Home',
-                    iconSize: 32,
-                    color: _currentIndex == 0 ? Colors.red : Colors.black,
-                    icon: Icon(Icons.home),
-                    onPressed: () {
-                      setState(() {
-                        _currentIndex = 0;
-                      });
-                    },
+                  Padding(
+                    padding: const EdgeInsets.all(6.0),
+                    child: InkWell(
+                      onTap: () {
+                        setState(() {
+                          _currentIndex = 0;
+                        });
+                      },
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Icon(
+                            Icons.miscellaneous_services,
+                            size: 32,
+                            color: _currentIndex == 0 ? Colors.amber : Colors.white,
+                          ),
+                          Text(
+                            'Services',
+                            style: GoogleFonts.openSans(
+                                fontSize: 14,
+                                color: _currentIndex == 0 ? Colors.amber : Colors.white
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
                   ),
-                  IconButton(
-                    tooltip: 'Timeline',
-                    iconSize: 32,
-                    color: _currentIndex == 1 ? Colors.red : Colors.black,
-                    icon: Icon(Icons.timeline),
-                    onPressed: () {
-                      setState(() {
-                        _currentIndex = 1;
-                      });
-                    },
+                  Padding(
+                    padding: const EdgeInsets.all(6.0),
+                    child: InkWell(
+                      onTap: () {
+                        setState(() {
+                          _currentIndex = 1;
+                        });
+                      },
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Icon(
+                              Icons.home,
+                            size: 32,
+                            color: _currentIndex == 1 ? Colors.amber : Colors.white,
+                          ),
+                          Text(
+                            'Home',
+                            style: GoogleFonts.openSans(
+                              fontSize: 14,
+                              color: _currentIndex == 1 ? Colors.amber : Colors.white
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
                   ),
                   SizedBox(width: 50,),
-                  IconButton(
-                    tooltip: 'Notification',
-                    iconSize: 32,
-                    color: _currentIndex == 2 ? Colors.red : Colors.black,
-                    icon: Icon(Icons.notifications),
-                    onPressed: () {
-                      setState(() {
-                        _currentIndex = 2;
-                      });
-                    },
+                  Padding(
+                    padding: const EdgeInsets.all(6.0),
+                    child: InkWell(
+                      onTap: () {
+                        setState(() {
+                          _currentIndex = 2;
+                        });
+                      },
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Icon(
+                            Icons.check_circle,
+                            size: 32,
+                            color: _currentIndex == 2 ? Colors.amber : Colors.white,
+                          ),
+                          Text(
+                            'Approvals',
+                            style: GoogleFonts.openSans(
+                                fontSize: 14,
+                                color: _currentIndex == 2 ? Colors.amber : Colors.white
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
                   ),
-                  IconButton(
-                    tooltip: 'Profile',
-                    iconSize: 32,
-                    color: _currentIndex == 3 ? Colors.red : Colors.black,
-                    icon: Icon(Icons.account_circle_rounded),
-                    onPressed: () {
-                      setState(() {
-                        _currentIndex = 3;
-                      });
-                    },
+                  Padding(
+                    padding: const EdgeInsets.all(6.0),
+                    child: InkWell(
+                      onTap: () {
+                        setState(() {
+                          _currentIndex = 3;
+                        });
+                      },
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Icon(
+                            Icons.more_horiz_outlined,
+                            size: 32,
+                            color: _currentIndex == 3 ? Colors.amber : Colors.white,
+                          ),
+                          Text(
+                            'More',
+                            style: GoogleFonts.openSans(
+                                fontSize: 14,
+                                color: _currentIndex == 3 ? Colors.amber : Colors.white
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
                   ),
                 ],
               )
@@ -189,7 +238,7 @@ class _BottomFloatNavBarScreenState extends State<BottomFloatNavBarScreen> {
                     children: [
                       ClipOval(
                         child: Material(
-                          color: Colors.red,
+                          color: Color(0xFFFF0000),
                           child: InkWell(
                             onTap: () { },
                             child: SizedBox(
@@ -411,6 +460,64 @@ class _BottomFloatNavBarScreenState extends State<BottomFloatNavBarScreen> {
         ],
       ),
     ),
+    );
+  }
+}
+
+class HomeScreen extends StatefulWidget {
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        title: Row(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: InkWell(
+                onTap: () { },
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(50.0),
+                  child: Image.asset(
+                    "assets/user1.jpg",
+                    width: 44,
+                    height: 44,
+                    fit: BoxFit.fill,
+                  ),
+                ),
+              ),
+            ),
+            Text(
+              'Home',
+              style: GoogleFonts.openSans(
+                  fontSize: 32,
+                  fontWeight: FontWeight.w700,
+                  color: Colors.black
+              ),
+            ),
+          ],
+        ),
+        actions: [
+          IconButton(
+              icon: Icon(Icons.search, size: 32, color: Colors.black),
+              onPressed: () { },
+          ),
+          IconButton(
+              icon: Icon(Icons.notifications, size: 32, color: Colors.black),
+              onPressed: () { },
+          ),
+        ],
+        elevation: 0,
+      ),
+      backgroundColor: Colors.white,
+      body: Center(child: Text('Home'),),
     );
   }
 }
