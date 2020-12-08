@@ -1,7 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_ui_snippets/bottomNavBar.dart';
-import 'package:flutter_ui_snippets/bottomNavigation.dart';
-import 'package:flutter_ui_snippets/customTabBar.dart';
+import 'package:flutter_ui_snippets/bottomNavBar.dart';                           // bottom navigation with bottomNavigationBar
+import 'package:flutter_ui_snippets/bottomNavigation.dart';                       // bottom navigation with defaultTabController
+import 'package:flutter_ui_snippets/customTabBar.dart';                           // appBar bottom navigation
+import 'package:flutter_ui_snippets/bottomNavBarPlusFloatingActionButton.dart';   // bottom navigation bar with floating action button in center
 
 void main() {
   runApp(MyApp());
@@ -15,9 +17,10 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        brightness: Brightness.dark,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: BottomNavBarScreen(),
+      home: BottomFloatNavBarScreen(),
     );
   }
 }
