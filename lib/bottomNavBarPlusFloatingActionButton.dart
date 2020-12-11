@@ -58,15 +58,24 @@ class _BottomFloatNavBarScreenState extends State<BottomFloatNavBarScreen> {
             ],
           ),
           actions: [
-            IconButton(
-              icon: Icon(Icons.search, size: 32, color: Colors.black),
+            _currentIndex == 0 || _currentIndex == 1 ? IconButton(
+              icon: Icon(Icons.search_outlined, size: 32, color: Colors.black),
               onPressed: () { },
-            ),
-            IconButton(
-              icon: Icon(Icons.notifications, size: 32, color: Colors.black),
+            ) : SizedBox(),
+            _currentIndex == 0 || _currentIndex == 1 ? IconButton(
+              icon: Icon(Icons.notifications_none_outlined, size: 32, color: Colors.black),
               onPressed: () { },
-            ),
+            ) : SizedBox(),
+            _currentIndex == 2 ? IconButton(
+              icon: Icon(Icons.filter_list, size: 32, color: Colors.black),
+              onPressed: () { },
+            ): SizedBox(),
+            _currentIndex == 3 ?  IconButton(
+            icon: Icon(Icons.settings_outlined, size: 32, color: Colors.black),
+            onPressed: () { },
+            ): SizedBox(),
           ],
+
           elevation: 0,
         ),
         body: _screensArray[_currentIndex],
