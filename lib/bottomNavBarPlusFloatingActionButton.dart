@@ -20,11 +20,55 @@ class _BottomFloatNavBarScreenState extends State<BottomFloatNavBarScreen> {
     Center(child: Text('Approvals'),),
     Center(child: Text('More'),),
   ];
+  List<String> _titles = <String>["Services", "Home", "Approvals", "More"];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         key: _scaffoldKey,
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          title: Row(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: InkWell(
+                  onTap: () { },
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(50.0),
+                    child: Image.asset(
+                      "assets/user1.jpg",
+                      width: 44,
+                      height: 44,
+                      fit: BoxFit.fill,
+                    ),
+                  ),
+                ),
+              ),
+              Text(
+                _titles[_currentIndex],
+                style: GoogleFonts.openSans(
+                    fontSize: 28,
+                    fontWeight: FontWeight.w700,
+                    color: Colors.black
+                ),
+              ),
+            ],
+          ),
+          actions: [
+            IconButton(
+              icon: Icon(Icons.search, size: 32, color: Colors.black),
+              onPressed: () { },
+            ),
+            IconButton(
+              icon: Icon(Icons.notifications, size: 32, color: Colors.black),
+              onPressed: () { },
+            ),
+          ],
+          elevation: 0,
+        ),
         body: _screensArray[_currentIndex],
         backgroundColor: Colors.white,
         floatingActionButton: Builder(
@@ -473,49 +517,6 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: Row(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: InkWell(
-                onTap: () { },
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(50.0),
-                  child: Image.asset(
-                    "assets/user1.jpg",
-                    width: 44,
-                    height: 44,
-                    fit: BoxFit.fill,
-                  ),
-                ),
-              ),
-            ),
-            Text(
-              'Home',
-              style: GoogleFonts.openSans(
-                  fontSize: 32,
-                  fontWeight: FontWeight.w700,
-                  color: Colors.black
-              ),
-            ),
-          ],
-        ),
-        actions: [
-          IconButton(
-              icon: Icon(Icons.search, size: 32, color: Colors.black),
-              onPressed: () { },
-          ),
-          IconButton(
-              icon: Icon(Icons.notifications, size: 32, color: Colors.black),
-              onPressed: () { },
-          ),
-        ],
-        elevation: 0,
-      ),
       backgroundColor: Colors.white,
       body: Center(child: Text('Home'),),
     );
