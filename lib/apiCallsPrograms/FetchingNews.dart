@@ -160,6 +160,17 @@ class NewsGridView extends StatelessWidget {
                   ),
                   child: Image.network(
                     newsList[index].urlToImage,
+                    loadingBuilder: (context, child, loadingProgress) {
+                      if(loadingProgress == null) {
+                        return child;
+                      }
+                      return Container(
+                        height: 180,
+                        child: Center(
+                          child: new CircularProgressIndicator(),
+                        ),
+                      );
+                    },
                     fit: BoxFit.fill,
                     width: double.infinity,
                     height: 180,
