@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_ui_snippets/bottomNavBar.dart';                           // bottom navigation with bottomNavigationBar
-import 'package:flutter_ui_snippets/bottomNavigation.dart';                       // bottom navigation with defaultTabController
-import 'package:flutter_ui_snippets/customTabBar.dart';                           // appBar bottom navigation
-import 'package:flutter_ui_snippets/bottomNavBarPlusFloatingActionButton.dart';   // bottom navigation bar with floating action button in center
+import 'file:///F:/Flutter%20Apps%202020/flutter_ui_snippets/lib/UI%20Practices/bottomNavBar.dart';                           // bottom navigation with bottomNavigationBar
+import 'file:///F:/Flutter%20Apps%202020/flutter_ui_snippets/lib/UI%20Practices/bottomNavigation.dart';                       // bottom navigation with defaultTabController
+import 'file:///F:/Flutter%20Apps%202020/flutter_ui_snippets/lib/UI%20Practices/customTabBar.dart';                           // appBar bottom navigation
+import 'file:///F:/Flutter%20Apps%202020/flutter_ui_snippets/lib/UI%20Practices/bottomNavBarPlusFloatingActionButton.dart';   // bottom navigation bar with floating action button in center
 
 void main() {
   runApp(MyApp());
