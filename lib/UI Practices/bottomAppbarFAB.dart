@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class BottomFloatNavBarScreen extends StatefulWidget {
+class BottomAppbarFABScreen extends StatefulWidget {
   @override
-  _BottomFloatNavBarScreenState createState() => _BottomFloatNavBarScreenState();
+  _BottomAppbarFABScreenState createState() => _BottomAppbarFABScreenState();
 }
 
-class _BottomFloatNavBarScreenState extends State<BottomFloatNavBarScreen> {
+class _BottomAppbarFABScreenState extends State<BottomAppbarFABScreen> {
 
   int _currentIndex = 1;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
