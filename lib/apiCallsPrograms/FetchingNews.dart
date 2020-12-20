@@ -1,7 +1,9 @@
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 
@@ -34,11 +36,12 @@ class NewsObject {
         urlToImage: json["urlToImage"] == null ? "https://www.allianceplast.com/wp-content/uploads/2017/11/no-image.png" : json["urlToImage"] ,
         published: json["publishedAt"]);
   }
+
 }
 
 Future<List<NewsObject>> fetchNews() async {
   http.Client client = new http.Client();
-  final String apiKey = null;  // add your appKey
+  final String apiKey = "0e9c0fa5ae1c471a8677099743999f7f";  // add your appKey
   final newsUrl = "http://newsapi.org/v2/everything?q=bitcoin&from=2020-11-20&sortBy=publishedAt&pageSize=100&apiKey=$apiKey";
   final response = await client.get(newsUrl);
   return compute(parseNews, response.body);
@@ -145,58 +148,66 @@ class NewsGridView extends StatelessWidget {
         ),
         itemCount: newsList.length,
         itemBuilder: (context, index) {
-          return Container(
-            decoration: BoxDecoration(
-                color: Colors.grey[300],
-                shape: BoxShape.rectangle,
-                borderRadius: BorderRadius.all(Radius.circular(15))
-            ),
-            child: Column(
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.only(
-                      topRight: Radius.circular(15),
-                      topLeft: Radius.circular(15)
+          return InkWell(
+            onTap: () {
+              MaterialPageRoute route = new MaterialPageRoute(
+                builder: (context) => NewsFullDetail(newsObject: newsList[index]),
+              );
+              Navigator.of(context).push(route);
+            },
+            child: Container(
+              decoration: BoxDecoration(
+                  color: Colors.grey[300],
+                  shape: BoxShape.rectangle,
+                  borderRadius: BorderRadius.all(Radius.circular(15))
+              ),
+              child: Column(
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(15),
+                        topLeft: Radius.circular(15)
+                    ),
+                    child: Image.network(
+                      newsList[index].urlToImage,
+                      loadingBuilder: (context, child, loadingProgress) {
+                        if(loadingProgress == null) {
+                          return child;
+                        }
+                        return Container(
+                          height: 180,
+                          child: Center(
+                            child: new CircularProgressIndicator(),
+                          ),
+                        );
+                      },
+                      fit: BoxFit.fill,
+                      width: double.infinity,
+                      height: 180,
+                    ),
                   ),
-                  child: Image.network(
-                    newsList[index].urlToImage,
-                    loadingBuilder: (context, child, loadingProgress) {
-                      if(loadingProgress == null) {
-                        return child;
-                      }
-                      return Container(
-                        height: 180,
-                        child: Center(
-                          child: new CircularProgressIndicator(),
-                        ),
-                      );
-                    },
-                    fit: BoxFit.fill,
-                    width: double.infinity,
-                    height: 180,
-                  ),
-                ),
-                ListTile(
-                  title: Text(
-                    newsList[index].title,
-                    style: Theme.of(context).textTheme.headline1,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  subtitle: Text(
-                    newsList[index].author,
-                    style: Theme.of(context).textTheme.subtitle1,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  contentPadding: EdgeInsets.only(
-                      left: 8.0,
-                      right: 8.0,
-                      top: 0,
-                      bottom: 0
-                  ),
-                )
-              ],
+                  ListTile(
+                    title: Text(
+                      newsList[index].title,
+                      style: Theme.of(context).textTheme.headline1,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    subtitle: Text(
+                      newsList[index].author,
+                      style: Theme.of(context).textTheme.subtitle1,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    contentPadding: EdgeInsets.only(
+                        left: 8.0,
+                        right: 8.0,
+                        top: 0,
+                        bottom: 0
+                    ),
+                  )
+                ],
+              ),
             ),
           );
         },
@@ -204,4 +215,191 @@ class NewsGridView extends StatelessWidget {
   }
 }
 
+class NewsFullDetail extends StatefulWidget {
+
+  final NewsObject newsObject;
+  NewsFullDetail({@required this.newsObject});
+
+  @override
+  _NewsFullDetailState createState() => _NewsFullDetailState();
+}
+
+class _NewsFullDetailState extends State<NewsFullDetail> {
+  bool _newLiked = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.grey[300],
+      body: Container(
+        child: Column(
+          // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Stack(
+              overflow: Overflow.visible,
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.only(
+                    bottomRight: Radius.elliptical(200, 70),
+                    bottomLeft: Radius.elliptical(200, 70),
+                  ),
+                  child: Image.network(
+                    widget.newsObject.urlToImage,
+                    loadingBuilder: (context, child, loadingProgress) {
+                      if(loadingProgress == null) {
+                        return child;
+                      }
+                      return Container(
+                        child: Center(
+                          child: new CircularProgressIndicator(),
+                        ),
+                      );
+                    },
+                    fit: BoxFit.fill,
+                    width: double.infinity,
+                    height: 350,
+                  ),
+                ),
+                Positioned(
+                  top: 40,
+                  left: 0,
+                  right: 0,
+                  child: Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        IconButton(
+                          icon: Icon(Icons.arrow_back, size: 30, color: Colors.white,),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                        IconButton(
+                          icon: Icon(Icons.shopping_cart, size: 30, color: Colors.white,),
+                          onPressed: () {
+
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Positioned(
+                  height: 64,
+                    // width: 64,
+                    bottom: -30,
+                    left: 0,
+                    right: 0,
+                    child: FloatingActionButton(
+                      backgroundColor: Colors.white,
+                      onPressed: () {
+                        setState(() {
+                          _newLiked = !_newLiked;
+                        });
+                      },
+                      child: Icon(
+                        _newLiked ? CupertinoIcons.heart_fill : CupertinoIcons.heart,size: 32, color: Color(0xFFFF0000),),
+                    )
+                ),
+              ],
+            ),
+            SizedBox(height: 40,),
+            Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Text(
+                    widget.newsObject.title,
+                    style: GoogleFonts.openSans(
+                        fontSize: 24.0,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.black
+                    ),
+                  ),
+                  RichText(
+                    text: TextSpan(
+                      children: <TextSpan>[
+                        TextSpan(
+                            text: 'Author:  ',
+                            style: GoogleFonts.openSans(fontSize: 18.0, color: Colors.grey[600])
+                        ),
+                        TextSpan(
+                            text: widget.newsObject.author,
+                            style: GoogleFonts.openSans(
+                                fontSize: 18.0,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.grey[800])
+                        ),
+                      ]
+                    ),
+                  ),
+                  RichText(
+                    text: TextSpan(
+                      children: <TextSpan>[
+                        TextSpan(
+                            text: 'Published on:  ',
+                            style: GoogleFonts.openSans(fontSize: 18.0, color: Colors.grey[600])
+                        ),
+                        TextSpan(
+                            text: widget.newsObject.published,
+                            style: GoogleFonts.openSans(
+                                fontSize: 18.0,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.grey[800]
+                            )
+                        ),
+                      ]
+                    ),
+                  ),
+                  RichText(
+                    text: TextSpan(
+                      children: <TextSpan>[
+                        TextSpan(
+                            text: 'Description: \n',
+                            style: GoogleFonts.openSans(
+                                fontSize: 18.0,
+                                color: Colors.grey[600],
+                            )
+                        ),
+                        TextSpan(
+                            text: widget.newsObject.description,
+                            style: GoogleFonts.openSans(
+                                fontSize: 18.0,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.grey[800]
+                            )
+                        ),
+                      ]
+                    ),
+                  ),
+                  SizedBox(height: 20,),
+                  Container(
+                    alignment: Alignment.bottomCenter,
+                    padding: EdgeInsets.all(8.0),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(50)
+                    ),
+                    child: Text(
+                      "Read More",
+                      style: GoogleFonts.openSans(
+                        fontSize: 32.0,
+                        color: Color(0xFFFF0000),
+                        fontWeight: FontWeight.w600
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
 
