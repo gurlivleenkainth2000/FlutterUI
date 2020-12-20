@@ -38,7 +38,7 @@ class NewsObject {
 
 Future<List<NewsObject>> fetchNews() async {
   http.Client client = new http.Client();
-  final String apiKey = "0e9c0fa5ae1c471a8677099743999f7f";
+  final String apiKey = null;  // add your appKey
   final newsUrl = "http://newsapi.org/v2/everything?q=bitcoin&from=2020-11-20&sortBy=publishedAt&pageSize=100&apiKey=$apiKey";
   final response = await client.get(newsUrl);
   return compute(parseNews, response.body);
