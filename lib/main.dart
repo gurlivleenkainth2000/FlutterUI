@@ -6,6 +6,7 @@ import 'package:flutter_ui_snippets/UI Practices/customTabBar.dart';            
 import 'package:flutter_ui_snippets/UI Practices/bottomAppbarFAB.dart';          // bottom navigation bar with floating action button in center
 import 'package:flutter_ui_snippets/apiCallsPrograms/FetchingNews.dart';
 import 'package:flutter_ui_snippets/apiCallsPrograms/fetchingRestaurants.dart';
+import 'package:flutter_ui_snippets/practiceCodes/fetchingLocation.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 void main() => runApp(MyApp());
@@ -17,8 +18,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
-        primaryColor: Colors.amber,
+        primarySwatch: Colors.teal,
+        // primaryColor: Colors.amber,
         // brightness: Brightness.dark,
         // canvasColor: Colors.transparent,
         visualDensity: VisualDensity.adaptivePlatformDensity,
@@ -34,7 +35,7 @@ class MyApp extends StatelessWidget {
           )
         )
       ),
-      home: NewsListApp(),
+      home: UserAddressPage(),
     );
   }
 }
