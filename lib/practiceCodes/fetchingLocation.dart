@@ -28,9 +28,23 @@ fetchCurrentLocation() async {
   return _locationData;
 }
 
-fetchUserAddress(Coordinates coordinates) async {
-  var address = await Geocoder.local.findAddressesFromCoordinates(coordinates);
-  return address.first;
+fetchUserAddress() async {
+  LocationData locationData = await fetchCurrentLocation();
+  Coordinates coordinates = new Coordinates(locationData.latitude, locationData.longitude);
+  var address = (await Geocoder.local.findAddressesFromCoordinates(coordinates)).first;
+  var userAddressObject = {
+    'addressLine': address.addressLine,
+    'city': address.locality,
+    'countryCode': address.countryCode,
+    'countryName': address.countryName,
+    'featureName': address.featureName,
+    'state': address.adminArea,
+    'locationCoordinates': address.coordinates.toMap(),
+    'postalCode': address.postalCode,
+  };
+  print(">>> User Address: " + userAddressObject.toString());
+  return userAddressObject;
+  // return address.first;
 }
 
 class UserAddressPage extends StatefulWidget {
@@ -39,92 +53,249 @@ class UserAddressPage extends StatefulWidget {
 }
 
 class _UserAddressPageState extends State<UserAddressPage> {
-  LocationData locationData;
-  String mainAddress = "Not Known";
-  String longitude = "Not Known";
-  String latitude = "Not Known";
+  double _longitude, _latitude;
+  String _postalCode;
+  String _address = '', _countryName, _countryCode, _state;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xff2F3C51),
       appBar: AppBar(
-        title: Text("Location"),
+        elevation: 0,
+        backgroundColor: Color(0xff2F3C51),
       ),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text('Your Location', style: Theme.of(context).textTheme.headline1,),
-              RichText(
-                text: TextSpan(
-                children: <TextSpan>[
-                  TextSpan(
-                      text: 'Latitude: \t',
-                      style: GoogleFonts.openSans(fontSize: 18.0,color: Colors.grey[600],)
+      body: SingleChildScrollView(
+        child: Stack(
+          children: [
+            Padding(
+              padding: EdgeInsets.all(16.0),
+              child: Container(
+                alignment: Alignment.topLeft,
+                height: MediaQuery.of(context).size.height - 82.0,
+                width: MediaQuery.of(context).size.width,
+                color: Colors.transparent,
+                child: RichText(
+                  textAlign: TextAlign.left,
+                  text: TextSpan(children: <TextSpan>[
+                    TextSpan(
+                        text: "Your",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 35,
+                        )),
+                    TextSpan(
+                        text: "\nLocation",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 45,
+                            fontWeight: FontWeight.bold))
+                  ]),
+                ),
+              ),
+            ),
+            Positioned(
+              top: 130,
+              child: Container(
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(topLeft: Radius.circular(75))),
+                height: MediaQuery.of(context).size.height,
+                width: MediaQuery.of(context).size.width,
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(50, 60, 8, 0),
+                  child: Column(
+                    children: <Widget>[
+                    Container(
+                    height: 130,
+                    width: MediaQuery.of(context).size.width,
+                    child: Card(
+                      color: Colors.transparent,
+                      elevation: 0,
+                      child: RichText(
+                        textAlign: TextAlign.left,
+                        text: TextSpan(children: <TextSpan>[
+                          TextSpan(
+                              text: "Full Address:\n",
+                              style: TextStyle(
+                                color: Color(0xff2F3C51),
+                                fontSize: 17,
+                              )),
+                          _address != ''
+                              ? TextSpan(
+                              text: "$_address",
+                              style: TextStyle(
+                                  color: Color(0xff2F3C51),
+                                  fontSize: 25,
+                                  fontWeight: FontWeight.bold))
+                              : TextSpan(
+                              text:
+                              "Tap icon to access your location",
+                              style: TextStyle(
+                                  color: Colors.grey,
+                                  fontSize: 15,
+                                  fontStyle: FontStyle.italic)),
+                        ]),
+                      ),
+                    ),
                   ),
-                  TextSpan(
-                      text: latitude,
-                      style: GoogleFonts.openSans(
-                          fontSize: 18.0,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.grey[800]
-                      )
+                    SizedBox(height: 6,),
+                    Container(
+                      height: 90,
+                      width: MediaQuery.of(context).size.width,
+                      child: Card(
+                        color: Colors.transparent,
+                        elevation: 0,
+                        child: RichText(
+                          textAlign: TextAlign.left,
+                          text: TextSpan(children: <TextSpan>[
+                            TextSpan(
+                                text: "Coordinates (longitude and latitude):\n",
+                                style: TextStyle(
+                                  color: Color(0xff2F3C51),
+                                  fontSize: 17,
+                                )),
+                            _latitude != null && _longitude != null
+                                ? TextSpan(
+                                text: "$_longitude, $_latitude",
+                                style: TextStyle(
+                                    color: Color(0xff2F3C51),
+                                    fontSize: 25,
+                                    fontWeight: FontWeight.bold))
+                                : TextSpan(
+                                text:
+                                "Tap icon to access your location",
+                                style: TextStyle(
+                                    color: Colors.grey,
+                                    fontSize: 15,
+                                    fontStyle: FontStyle.italic)),
+                          ]),
+                        ),
+                      ),
+                  ),
+                    SizedBox(height: 6,),
+                    Container(
+                      height: 70,
+                      width: MediaQuery.of(context).size.width,
+                      child: Card(
+                        color: Colors.transparent,
+                        elevation: 0,
+                        child: RichText(
+                          textAlign: TextAlign.left,
+                          text: TextSpan(children: <TextSpan>[
+                            TextSpan(
+                                text: "Postal Code:\n",
+                                style: TextStyle(
+                                  color: Color(0xff2F3C51),
+                                  fontSize: 17,
+                                )),
+                            _postalCode != null
+                                ? TextSpan(
+                                text: "$_postalCode",
+                                style: TextStyle(
+                                    color: Color(0xff2F3C51),
+                                    fontSize: 25,
+                                    fontWeight: FontWeight.bold))
+                                : TextSpan(
+                                text:
+                                "Tap icon to access your location",
+                                style: TextStyle(
+                                    color: Colors.grey,
+                                    fontSize: 15,
+                                    fontStyle: FontStyle.italic)),
+                          ]),
+                        ),
+                      ),
+                  ),
+                    SizedBox(height: 6,),
+                    Container(
+                      height: 70,
+                      width: MediaQuery.of(context).size.width,
+                      child: Card(
+                        color: Colors.transparent,
+                        elevation: 0,
+                        child: RichText(
+                          textAlign: TextAlign.left,
+                          text: TextSpan(children: <TextSpan>[
+                            TextSpan(
+                                text: "State:\n",
+                                style: TextStyle(
+                                  color: Color(0xff2F3C51),
+                                  fontSize: 17,
+                                )),
+                            _state != null
+                                ? TextSpan(
+                                text: "$_state",
+                                style: TextStyle(
+                                    color: Color(0xff2F3C51),
+                                    fontSize: 25,
+                                    fontWeight: FontWeight.bold))
+                                : TextSpan(
+                                text:
+                                "Tap icon to access your location",
+                                style: TextStyle(
+                                    color: Colors.grey,
+                                    fontSize: 15,
+                                    fontStyle: FontStyle.italic)),
+                          ]),
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 6,),
+                    Container(
+                      height: 70,
+                      width: MediaQuery.of(context).size.width,
+                      child: Card(
+                        color: Colors.transparent,
+                        elevation: 0,
+                        child: RichText(
+                          textAlign: TextAlign.left,
+                          text: TextSpan(children: <TextSpan>[
+                            TextSpan(
+                                text: "Country:\n",
+                                style: TextStyle(
+                                  color: Color(0xff2F3C51),
+                                  fontSize: 17,
+                                )),
+                            _countryName != null
+                                ? TextSpan(
+                                text: "$_countryName ($_countryCode)",
+                                style: TextStyle(
+                                    color: Color(0xff2F3C51),
+                                    fontSize: 25,
+                                    fontWeight: FontWeight.bold))
+                                : TextSpan(
+                                text:
+                                "Tap icon to access your location",
+                                style: TextStyle(
+                                    color: Colors.grey,
+                                    fontSize: 15,
+                                    fontStyle: FontStyle.italic)),
+                          ]),
+                        ),
+                      ),
                   ),
                 ]),
               ),
-              RichText(
-                text: TextSpan(
-                children: <TextSpan>[
-                  TextSpan(
-                      text: 'Longitude: \t',
-                      style: GoogleFonts.openSans(fontSize: 18.0,color: Colors.grey[600],)
-                  ),
-                  TextSpan(
-                      text: longitude,
-                      style: GoogleFonts.openSans(
-                          fontSize: 18.0,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.grey[800]
-                      )
-                  ),
-                ]),
-              ),
-              RichText(
-                text: TextSpan(
-                    children: <TextSpan>[
-                      TextSpan(
-                          text: 'Address: \t',
-                          style: GoogleFonts.openSans(fontSize: 18.0,color: Colors.grey[600],)
-                      ),
-                      TextSpan(
-                          text: mainAddress,
-                          style: GoogleFonts.openSans(
-                              fontSize: 18.0,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.grey[800]
-                          )
-                      ),
-                    ]),
-              ),
-            ],
-          ),
-        )
+            ),),
+          ],
+        ),
       ),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: Color(0xff2F3C51),
         splashColor: Colors.teal[300],
-        child: Icon(Icons.my_location_sharp, size: 38,),
+        child: Icon(Icons.my_location_sharp, size: 38, color: Colors.white,),
         tooltip: 'Get Current Location',
-        onPressed: () async {
-          locationData = await fetchCurrentLocation();
-          Coordinates coordinates = new Coordinates(locationData.latitude, locationData.longitude);
-          Address address = await fetchUserAddress(coordinates);
-          print(">>> " + address.toString());
+        onPressed: () async{
+          var address = await fetchUserAddress();
           setState(() {
-            longitude = locationData.longitude.toString();
-            latitude = locationData.latitude.toString();
-            mainAddress = address.addressLine.toString();
+            _address = address['addressLine'];
+            _longitude = address['locationCoordinates']['longitude'];
+            _latitude = address['locationCoordinates']['latitude'];
+            _postalCode = address['postalCode'];
+            _countryName = address['countryName'];
+            _countryCode = address['countryCode'];
+            _state = address['state'];
           });
         },
       ),
