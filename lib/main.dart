@@ -1,3 +1,5 @@
+import 'package:camera/camera.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_ui_snippets/UI Practices/bottomNavBar.dart';             // bottom navigation with bottomNavigationBard
@@ -7,12 +9,25 @@ import 'package:flutter_ui_snippets/UI Practices/bottomAppbarFAB.dart';         
 import 'package:flutter_ui_snippets/apiCallsPrograms/FetchingNews.dart';
 import 'package:flutter_ui_snippets/apiCallsPrograms/fetchingRestaurants.dart';
 import 'package:flutter_ui_snippets/practiceCodes/fetchingLocation.dart';
+import 'package:flutter_ui_snippets/practiceCodes/imageCapturing.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-void main() => runApp(MyApp());
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  // final cameras = await availableCameras();
+  // final camera = cameras[1];
+  
+  MaterialApp app = MaterialApp(
+    theme: ThemeData.dark(),
+    home: ImageCaptureScreen(),
+  );
+  runApp(app);
+}
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -35,6 +50,7 @@ class MyApp extends StatelessWidget {
           )
         )
       ),
+      debugShowCheckedModeBanner: false,
       home: UserAddressPage(),
     );
   }
