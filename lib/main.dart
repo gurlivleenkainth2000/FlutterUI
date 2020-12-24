@@ -9,6 +9,7 @@ import 'package:flutter_ui_snippets/UI Practices/bottomAppbarFAB.dart';         
 import 'package:flutter_ui_snippets/apiCallsPrograms/FetchingNews.dart';
 import 'package:flutter_ui_snippets/apiCallsPrograms/fetchingRestaurants.dart';
 import 'package:flutter_ui_snippets/practiceCodes/fetchingLocation.dart';
+import 'package:flutter_ui_snippets/practiceCodes/firebasePhoneAuthentication.dart';
 import 'package:flutter_ui_snippets/practiceCodes/imageCapturing.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -22,7 +23,7 @@ Future<void> main() async {
     theme: ThemeData.dark(),
     home: ImageCaptureScreen(),
   );
-  runApp(app);
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -42,7 +43,7 @@ class MyApp extends StatelessWidget {
           headline1: GoogleFonts.openSans(
             fontSize: 22.0,
             fontWeight: FontWeight.w600,
-            color: Colors.black
+            color: Colors.white
           ),
           subtitle1: GoogleFonts.openSans(
             fontSize: 18.0,
@@ -51,7 +52,7 @@ class MyApp extends StatelessWidget {
         )
       ),
       debugShowCheckedModeBanner: false,
-      home: UserAddressPage(),
+      home: PhoneAuthenticationScreen(),
     );
   }
 }
