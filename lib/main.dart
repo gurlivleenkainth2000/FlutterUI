@@ -8,6 +8,7 @@ import 'package:flutter_ui_snippets/UI Practices/customTabBar.dart';            
 import 'package:flutter_ui_snippets/UI Practices/bottomAppbarFAB.dart';          // bottom navigation bar with floating action button in center
 import 'package:flutter_ui_snippets/apiCallsPrograms/FetchingNews.dart';
 import 'package:flutter_ui_snippets/apiCallsPrograms/fetchingRestaurants.dart';
+import 'package:flutter_ui_snippets/practiceCodes/TutorialScreen.dart';
 import 'package:flutter_ui_snippets/practiceCodes/fetchingLocation.dart';
 import 'package:flutter_ui_snippets/practiceCodes/firebasePhoneAuthentication.dart';
 import 'package:flutter_ui_snippets/practiceCodes/imageCapturing.dart';
@@ -43,7 +44,7 @@ class MyApp extends StatelessWidget {
           headline1: GoogleFonts.openSans(
             fontSize: 22.0,
             fontWeight: FontWeight.w600,
-            color: Colors.white
+            color: Colors.black
           ),
           subtitle1: GoogleFonts.openSans(
             fontSize: 18.0,
@@ -52,7 +53,7 @@ class MyApp extends StatelessWidget {
         )
       ),
       debugShowCheckedModeBanner: false,
-      home: PhoneAuthenticationScreen(),
+      home: TutorialScreen(),
     );
   }
 }
