@@ -14,8 +14,9 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <application
         android:name="io.flutter.app.FlutterApplication"
-        android:label="flutter_ui_snippets"
-        android:icon="@mipmap/ic_launcher">
+        android:label="UI Snippets"
+        android:roundIcon="@drawable/ic_logo"
+        android:icon="@drawable/ic_logo">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
