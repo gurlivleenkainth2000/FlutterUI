@@ -12,6 +12,7 @@ import 'package:flutter_ui_snippets/practiceCodes/TutorialScreen.dart';
 import 'package:flutter_ui_snippets/practiceCodes/fetchingLocation.dart';
 import 'package:flutter_ui_snippets/practiceCodes/firebasePhoneAuthentication.dart';
 import 'package:flutter_ui_snippets/practiceCodes/imageCapturing.dart';
+import 'package:flutter_ui_snippets/practiceCodes/orientationExample.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 Future<void> main() async {
@@ -53,7 +54,7 @@ class MyApp extends StatelessWidget {
         )
       ),
       debugShowCheckedModeBanner: false,
-      home: TutorialScreen(),
+      home: OrientationPage(),
     );
   }
 }
