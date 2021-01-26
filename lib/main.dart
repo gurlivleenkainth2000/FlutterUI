@@ -9,6 +9,7 @@ import 'package:flutter_ui_snippets/UI Practices/bottomAppbarFAB.dart';         
 import 'package:flutter_ui_snippets/apiCallsPrograms/FetchingNews.dart';
 import 'package:flutter_ui_snippets/apiCallsPrograms/fetchingRestaurants.dart';
 import 'package:flutter_ui_snippets/practiceCodes/TutorialScreen.dart';
+import 'package:flutter_ui_snippets/practiceCodes/cloudFirestoreImplementation.dart';
 import 'package:flutter_ui_snippets/practiceCodes/fetchingLocation.dart';
 import 'package:flutter_ui_snippets/practiceCodes/firebasePhoneAuthentication.dart';
 import 'package:flutter_ui_snippets/practiceCodes/imageCapturing.dart';
@@ -18,7 +19,7 @@ import 'package:google_fonts/google_fonts.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  // final cameras = await availableCameras();
+  // final cameras = await availableCame  ras();
   // final camera = cameras[1];
   
   MaterialApp app = MaterialApp(
@@ -54,7 +55,7 @@ class MyApp extends StatelessWidget {
         )
       ),
       debugShowCheckedModeBanner: false,
-      home: OrientationPage(),
+      home: CloudFireStoreApp(),
     );
   }
 }
