@@ -6,14 +6,17 @@ import 'package:flutter_ui_snippets/UI Practices/bottomNavBar.dart';            
 import 'package:flutter_ui_snippets/UI Practices/bottomNavigation.dart';         // bottom navigation with defaultTabController
 import 'package:flutter_ui_snippets/UI Practices/customTabBar.dart';             // appBar bottom navigation
 import 'package:flutter_ui_snippets/UI Practices/bottomAppbarFAB.dart';          // bottom navigation bar with floating action button in center
+import 'package:flutter_ui_snippets/UI%20Practices/MyApp.dart';
 import 'package:flutter_ui_snippets/apiCallsPrograms/FetchingNews.dart';
 import 'package:flutter_ui_snippets/apiCallsPrograms/fetchingRestaurants.dart';
+import 'package:flutter_ui_snippets/appWithProvider/ProviderApp.dart';
 import 'package:flutter_ui_snippets/practiceCodes/TutorialScreen.dart';
 import 'package:flutter_ui_snippets/practiceCodes/cloudFirestoreImplementation.dart';
 import 'package:flutter_ui_snippets/practiceCodes/fetchingLocation.dart';
 import 'package:flutter_ui_snippets/practiceCodes/firebasePhoneAuthentication.dart';
 import 'package:flutter_ui_snippets/practiceCodes/imageCapturing.dart';
 import 'package:flutter_ui_snippets/practiceCodes/orientationExample.dart';
+import 'package:flutter_ui_snippets/teamViewerDiscussionCode/TeamViewerApp.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 Future<void> main() async {
@@ -22,10 +25,10 @@ Future<void> main() async {
   // final cameras = await availableCame  ras();
   // final camera = cameras[1];
   
-  MaterialApp app = MaterialApp(
-    theme: ThemeData.dark(),
-    home: ImageCaptureScreen(),
-  );
+  // MaterialApp app = MaterialApp(
+  //   theme: ThemeData.dark(),
+  //   home: ImageCaptureScreen(),
+  // );
   runApp(MyApp());
 }
 
@@ -39,7 +42,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.teal,
         // primaryColor: Colors.amber,
-        // brightness: Brightness.dark,
+        brightness: Brightness.dark,
         // canvasColor: Colors.transparent,
         visualDensity: VisualDensity.adaptivePlatformDensity,
         textTheme: TextTheme(
@@ -55,7 +58,7 @@ class MyApp extends StatelessWidget {
         )
       ),
       debugShowCheckedModeBanner: false,
-      home: CloudFireStoreApp(),
+      home: CustomTabs(),
     );
   }
 }

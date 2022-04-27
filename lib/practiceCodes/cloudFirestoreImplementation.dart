@@ -5,7 +5,6 @@ import 'package:intl/intl.dart';
 
 class CloudFireStoreApp extends StatefulWidget {
 
-
   @override
   _CloudFireStoreAppState createState() => _CloudFireStoreAppState();
 }
@@ -107,7 +106,6 @@ class _CloudFireStoreAppState extends State<CloudFireStoreApp> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
-      backgroundColor: charcoal,
       body: StreamBuilder(
         stream: _firestore.collection("Videos").orderBy("createdOn", descending: true).snapshots(),
         builder: (context, snapshot) =>
@@ -123,21 +121,33 @@ class _CloudFireStoreAppState extends State<CloudFireStoreApp> {
           showDialog(
             context: scaffoldKey.currentContext,
             builder: (context) => AlertDialog(
+              elevation: 10,
               title: Text('Add New Youtube Video'),
               content: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   TextFormField(
                     controller: nameController,
+                    style: TextStyle(color: Colors.white),
                     decoration: InputDecoration(
                       labelText: 'Name',
+                      labelStyle: TextStyle(
+                          color: Colors.white
+                      ),
                     ),
                   ),
                   TextFormField(
                     controller: urlController,
+                    style: TextStyle(color: Colors.white),
                     decoration: InputDecoration(
                       labelText: 'Video URL',
+                      labelStyle: TextStyle(
+                        color: Colors.white
+                      ),
                     ),
+                    onChanged: (value) {
+                      print(value);
+                    },
                   )
                 ],
               ),
